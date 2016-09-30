@@ -25,7 +25,7 @@ public class Robot {
     
     //get positionX, positionY, orientation, speed
     
-    public int speed()
+    public int getSpeed()
     {
     	return this.speed;
     }
@@ -37,11 +37,14 @@ public class Robot {
     {
     	return this.positionY;
     }
-    public int orientation()
+    public int getOrientation()
     {
     	return this.orientation;
     }
-   
+    public void setSpeed(int amount)
+    {
+    	this.speed = amount;
+    }
    
     //rotate
     
@@ -83,7 +86,7 @@ public class Robot {
     
     public String toString()
     {
-    	return "Speed: " + this.speed + " Orientation: " + this.orientation + " PositionX: " + this.positionX + " PositionY " + this.positionY;
+    	return "Speed: " + this.speed + " Orientation: " + this.orientation + " PositionX: " + this.positionX + " PositionY: " + this.positionY;
     }
     
     //distance from another point
@@ -104,6 +107,8 @@ public class Robot {
 		Robot yourRobot = new Robot(0, 0, 90, 2);
 		
 		System.out.println(myRobot.toString());
+		myRobot.rotate(540);
+		myRobot.setSpeed(5);
 		myRobot.move();
 		System.out.println(myRobot.toString());
 		System.out.println(myRobot.distanceFrom(yourRobot));
