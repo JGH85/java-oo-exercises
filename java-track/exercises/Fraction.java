@@ -41,6 +41,10 @@ public class Fraction {
 		Integer b = this.den;
 		Integer c;
 		
+		//while b
+		// a, b = b, a%b
+		//return a
+		
 		while (b!=0) {
 			c = a % b;
 			a = b;
