@@ -17,6 +17,12 @@ public class StudentAndCourseTest extends TestCase {
 	String s6 = "The plus method shouldn't change the original vector";
 	String s8 = "hasHigherAverage() isn't working properly";
 	String s9 = "getClassStanding() isn't working properly";
+	
+	
+	
+	
+	
+	
 	@Test
 	public void testStudentInit() {
 		Student s = new Student("Doug", "Shook", 111111);
