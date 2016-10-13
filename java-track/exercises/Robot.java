@@ -8,6 +8,7 @@ public class Robot {
     private int positionX;
     private int positionY;
     private int orientation;
+    protected int health;
         
    
         
@@ -21,6 +22,7 @@ public class Robot {
         this.positionX = positionX;
         this.positionY = positionY;
         this.orientation = orientation;
+        this.health = 10;
     }
     
     //get positionX, positionY, orientation, speed
@@ -41,6 +43,15 @@ public class Robot {
     {
     	return this.orientation;
     }
+    public int getHealth()
+    {
+    	return this.health;
+    }
+    public void setHealth(int amount)
+    {
+    	this.health = amount;
+    }
+    
     public void setSpeed(int amount)
     {
     	this.speed = amount;
@@ -86,7 +97,7 @@ public class Robot {
     
     public String toString()
     {
-    	return "Speed: " + this.speed + " Orientation: " + this.orientation + " PositionX: " + this.positionX + " PositionY: " + this.positionY;
+    	return "Speed: " + this.speed + " Orientation: " + this.orientation + " PositionX: " + this.positionX + " PositionY: " + this.positionY + " Health: " + this.health;
     }
     
     //distance from another point
