@@ -1,14 +1,12 @@
+package robots;
 
-public class AttackRobot extends Robot {
+public class AttackRobot extends Robot implements RobotBehavior {
 	
-	private int attackStrength;
-	private int defenseStrength;
-	
+		
 	public AttackRobot (int positionX, int positionY, int orientation, int speed, int attackStrength, int defenseStrength){
 		
-		super(positionX, positionY, orientation, speed);
-		this.attackStrength = attackStrength;
-		this.defenseStrength = defenseStrength;
+		super(positionX, positionY, orientation, speed, attackStrength, defenseStrength);
+		
 	}
 	
 	public void heal(int amount)
@@ -16,17 +14,15 @@ public class AttackRobot extends Robot {
 		this.health +=amount;
 	}
 	
-	public int getDefenseStrength()
-	{
-		return this.defenseStrength;
-	}
 	
-	public String attack (AttackRobot r2) 
+	public String attack (Robot r2) 
 	{
 		String result;
 		if (this.distanceFrom(r2)>3.0)
 		{
-			result = "Sorry, you are too far away to attack.";
+			this.rotate(90);
+			this.move();
+			result = "Sorry, you are too far away to attack. Repositioning. Now at X:" + this.positionX  + " Y:" + this.positionY;
 		}
 		else 
 		{
@@ -37,7 +33,7 @@ public class AttackRobot extends Robot {
 		return result;
 	}
 	
-	public String canAttack (AttackRobot r2) 
+	public String canAttack (Robot r2) 
 	{
 		String result;
 		double distance = this.distanceFrom(r2);
@@ -52,7 +48,11 @@ public class AttackRobot extends Robot {
 		return result;
 	}
 	
-	
+	@Override
+	public String doNextMove(Robot r2) {
+		// TODO Auto-generated method stub
+		return this.attack(r2);
+	}
 	
 	
 	
@@ -77,6 +77,8 @@ public class AttackRobot extends Robot {
 		System.out.println(attacker2.canAttack(attacker3));
 
 	}
+
+	
 	
 	
 	

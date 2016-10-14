@@ -1,3 +1,4 @@
+package robots;
 
 public class Robot {
         
@@ -5,11 +6,12 @@ public class Robot {
     // three fields
     //private String name;
     private int speed;
-    private int positionX;
-    private int positionY;
+    protected int positionX;
+    protected int positionY;
     private int orientation;
     protected int health;
-        
+    protected int attackStrength;
+	protected int defenseStrength;    
    
         
     //methods to make:
@@ -17,15 +19,24 @@ public class Robot {
     //constructor
     
     // robot class constructor
-    public Robot (int positionX, int positionY, int orientation, int speed) {
+    public Robot (int positionX, int positionY, int orientation, int speed, int attackStrength, int defenseStrength) {
         this.speed = speed;
         this.positionX = positionX;
         this.positionY = positionY;
         this.orientation = orientation;
         this.health = 10;
+		this.attackStrength = attackStrength;
+		this.defenseStrength = defenseStrength;
     }
     
     //get positionX, positionY, orientation, speed
+    
+    
+    public int getDefenseStrength()
+	{
+		return this.defenseStrength;
+	}
+	
     
     public int getSpeed()
     {
@@ -114,8 +125,8 @@ public class Robot {
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("hello");
-		Robot myRobot = new Robot(5, 4, 90, 2);
-		Robot yourRobot = new Robot(0, 0, 90, 2);
+		Robot myRobot = new Robot(5, 4, 90, 2, 0, 0);
+		Robot yourRobot = new Robot(0, 0, 90, 2, 0, 0);
 		
 		System.out.println(myRobot.toString());
 		myRobot.rotate(540);
