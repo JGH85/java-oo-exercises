@@ -109,13 +109,13 @@ public class Student {
 //legacy student constructor
 	public Student (Student s1, Student s2)
 	{
-		this(s1.getName(), s2.getName(), (s1.getStudentID()+ s2.getStudentID()));
+		this (s1.getName(), s2.getName(), (s1.getStudentID()+ s2.getStudentID()));
 		this.GPA = (s1.GPA + s2.GPA)/2; 
 		this.credits = Math.max(s1.credits, s2.credits);
 	}
 	
 	//create legacy
-	public Student createLegacy(Student s1, Student s2)
+	public static Student createLegacy(Student s1, Student s2)
 	{
 		return new Student(s1, s2);
 				
@@ -133,7 +133,7 @@ public class Student {
 		Student A = new Student("Abe", "Lincoln", 1111);
 		Student B = new Student("Babe", "Ruth", 2222);
 		
-		Student baby = A.createLegacy(A, B);
+		Student baby = Student.createLegacy(A, B);
 		
 		System.out.println(baby.getName());
 		System.out.println(baby.getGPA());

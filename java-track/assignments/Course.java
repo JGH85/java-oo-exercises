@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Course {
 
@@ -8,6 +9,8 @@ public class Course {
 	private int seatsRemaining;	
 	private Student[] roster;
 		
+	private static ArrayList<Course> courseList = new ArrayList<Course>();
+	
 		
 //constructor
 		
@@ -16,6 +19,7 @@ public class Course {
 		    this.credits = credits;
 		    this.roster = new Student[seats];
 		    this.seatsRemaining = seats;
+		    Course.courseList.add(this);
 		    }
 
 //getters
@@ -99,7 +103,12 @@ public class Course {
 	}	
 	
 	
+	//TODO add list of courses
 	
+	public static ArrayList<Course> getAllCourses()
+	{
+		return courseList;
+	}
 	
 	
 	
@@ -109,7 +118,12 @@ public class Course {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Course A = new Course ("Latin", 6, 25);
+		Course B = new Course ("History", 2, 50);
+		Course C = new Course ("Greek", 2, 2);
+		
+		
+		System.out.println(Course.getAllCourses());
 	}
 
 }
