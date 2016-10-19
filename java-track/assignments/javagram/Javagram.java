@@ -10,15 +10,21 @@ public class Javagram {
 
 	public static void main(String[] args) {
 
-		// Create the base path for images		
+		// Create the base path for images and set up variables.		
 		String[] baseParts = {System.getProperty("user.dir"), "images"};
 		String dir = String.join(File.separator, baseParts);
 		String relPath;
+		String refilter = "";
+		String imageName ="";
+		String fileName ="";
+
 		Picture picture = null;
+		Picture processed = null;
 		Scanner in = new Scanner(System.in);
+		Boolean saveApproval = false;
+		
 		System.out.println("Welcome to Javagram, our homemade image filter program.");
 		System.out.println("First let's select an image.");
-		String imageName ="";
 		// prompt user for image to filter and validate input
 		do {
 			
@@ -47,53 +53,29 @@ public class Javagram {
 			
 		} while(picture == null);
 		
-		// TODO - prompt user for filter and validate input
-		//int chosenInt = displayFilterMenu(in);
-		//set up some variables that we will need for the next sections
-		boolean valid_input = false;
-		//i need to instantiate variable outside of try block, but can't do that without making it a filter type. 
-		Filter filter = new BlueFilter();
-		
-		//put all of this in a function
-		
 		System.out.println("Cool. Now that we have an image here are your filter options.");
-		System.out.println("1. BlueFilter");
-		System.out.println("2. RedFilter");
-		System.out.println("3. GreenFilter");
-		System.out.println("Please select a filter option");
 		
+		// TODO - prompt user for filter and validate input
 		
-		
-	
 		do {
-		int selection = in.nextInt();
-		
-		// TODO - pass filter ID int to getFilter, and get an instance of Filter back 
-		try {
-			filter = getFilter(selection);
-			valid_input = true;
-			}
-		catch (IllegalArgumentException e) 
-			{
-			System.out.println("Invalid selection. Try again.");
-			}
-		} while (valid_input == false);
-		
-		// filter and display image
-		Picture processed = filter.process(picture);
-		processed.show();
-		
-		System.out.println("Image successfully filtered");
-		
-		
-		
-		//ask if they want to use another filter. 
-		
-		
+			//use function to choose a filter
+			Filter filter = filterMenu(in);
+
+			// filter and display image
+			processed = filter.process(picture);
+			processed.show();
+			
+			System.out.println("Image successfully filtered");
+				
+			//ask if they want to use another filter. 
+			System.out.println("Would you like to apply another filter before saving?");
+			refilter = in.next();
+			if (refilter.equals("yes")){
+					picture = processed;
+				}
+		} while (refilter.equals("yes"));
+			
 		// save image, if desired
-		Boolean saveApproval = false;
-		String fileName ="";
-		
 		do {
 			System.out.println("Save image to (relative to " + dir + ") (type 'exit' to quit w/o saving):");
 			fileName = in.next();
@@ -143,36 +125,51 @@ public class Javagram {
 			else if (fNumber == 3) {
 				return new GreenFilter();
 			}
+			else if (fNumber == 4) {
+				return new GreyScale();
+			}
+			else if (fNumber == 5) {
+				return new FlipHorizontal();
+			}
+			else if (fNumber == 6) {
+				return new FlipVertical();
+			}
 			else throw new IllegalArgumentException();
 		}
 	
 	
-//	private static int displayFilterMenu(Scanner in) {
+	private static Filter filterMenu(Scanner in) {
 		
-	/*//menu for user to choose from
-	System.out.println("Cool. Now that we have an image here are your filter options.");
-	System.out.println("1. BlueFilter");
-	System.out.println("2. RedFilter");
-	System.out.println("3. TBDFilter");
-	System.out.println("Please select a filter option");
-	
-	int selection = in.nextInt();
-	boolean valid_input = false;
-	do {
+		//set up some variables that we will need for the next sections
+		boolean valid_input = false;
+		//i need to instantiate variable outside of try block, but can't do that without making it a filter type. 
+		Filter filter = new BlueFilter();
+		
+		System.out.println("1. BlueFilter");
+		System.out.println("2. RedFilter");
+		System.out.println("3. GreenFilter");
+		System.out.println("4. GreyScale");
+		System.out.println("5. FlipHorizontal");
+		System.out.println("6. FlipVertical");
+
+		System.out.println("Please select a filter option");
+		
+		do {
+		int selection = in.nextInt();
+		
+		// TODO - pass filter ID int to getFilter, and get an instance of Filter back 
 		try {
-			getFilter(selection);
+			filter = getFilter(selection);
 			valid_input = true;
-		}
-		catch (IllegalArgumentException ex) {
-			System.err.println("Illegal integer:" + ex.getMessage());
-			System.out.println("Invalid selection. Please try again.");
-		}
+			}
+		catch (IllegalArgumentException e) 
+			{
+			System.out.println("Invalid selection. Try again.");
+			}
+		} while (valid_input == false);
+		
+		return filter;
+	
+	
 	}
-	while (valid_input ==  false);
-	
-	return selection;
-	
-	
-	
-	}*/
 }
