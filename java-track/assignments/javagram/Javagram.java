@@ -18,7 +18,7 @@ public class Javagram {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Welcome to Javagram, our homemade image filter program.");
 		System.out.println("First let's select an image.");
-		
+		String imageName ="";
 		// prompt user for image to filter and validate input
 		do {
 			
@@ -30,6 +30,10 @@ public class Javagram {
 				System.out.println("Please provide an image path (relative to " + dir + "):");
 				relPath = in.next();
 				
+				//store name of image for use later in comparing to new file name
+				imageName = relPath;
+				
+				//this is the broken code that came with the assignment
 				/*String[] relPathParts = relPath.split(File.separator);
 				imagePath = dir + File.separator + String.join(File.separator, Arrays.asList(relPathParts));
 				*/
@@ -45,17 +49,22 @@ public class Javagram {
 		
 		// TODO - prompt user for filter and validate input
 		//int chosenInt = displayFilterMenu(in);
+		//set up some variables that we will need for the next sections
+		boolean valid_input = false;
+		//i need to instantiate variable outside of try block, but can't do that without making it a filter type. 
+		Filter filter = new BlueFilter();
+		
+		//put all of this in a function
 		
 		System.out.println("Cool. Now that we have an image here are your filter options.");
 		System.out.println("1. BlueFilter");
 		System.out.println("2. RedFilter");
-		System.out.println("3. TBDFilter");
+		System.out.println("3. GreenFilter");
 		System.out.println("Please select a filter option");
 		
-		boolean valid_input = false;
 		
-		//i need to instantiate variable outside of try block, but can't do that without making it a filter type. 
-		Filter filter = new BlueFilter();
+		
+	
 		do {
 		int selection = in.nextInt();
 		
@@ -76,27 +85,54 @@ public class Javagram {
 		
 		System.out.println("Image successfully filtered");
 		
+		
+		
+		//ask if they want to use another filter. 
+		
+		
 		// save image, if desired
+		Boolean saveApproval = false;
+		String fileName ="";
 		
-		System.out.println("Save image to (relative to " + dir + ") (type 'exit' to quit w/o saving):");
-		String fileName = in.next();
+		do {
+			System.out.println("Save image to (relative to " + dir + ") (type 'exit' to quit w/o saving):");
+			fileName = in.next();
 		
-		// TODO - if the user enters the same file name as the input file, confirm that they want to overwrite the original
+			// TODO - if the user enters the same file name as the input file, confirm that they want to overwrite the original
+				
+			if (fileName.equals("exit")) {
+				break;
+			}
+			else if (fileName.equals(imageName))
+			{
+				System.out.println("Do you really want to write over the original file? Type 'yes' to confirm.");
+				String confirmation = in.next();
+				
+				if (confirmation.equals("yes"))
+					{saveApproval = true;}
+					
+			}
+			else {
+				saveApproval = true;
+			}
+				
+			} while (saveApproval == false);	
 		
-		if (fileName.equals("exit")) {
-			System.out.println("Image not saved");
-		} else {
+		if (saveApproval == true) 
+		{
 			String absFileName = dir + File.separator + fileName;
 			processed.save(absFileName);
 			System.out.println("Image saved to " + absFileName);
-		}	
-		
+		}
+		else {
+			System.out.println("Image not saved");
+		}
 		// close input scanner
 		in.close();
 	}
 	
-	//refactor this method to accept an int parameter, and return an instance of the Filter interface
-	//refactor this method to thrown an exception if the int doesn't correspond to a filter
+	//TODO - refactor this method to accept an int parameter, and return an instance of the Filter interface
+	//TODO - refactor this method to thrown an exception if the int doesn't correspond to a filter
 	private static Filter getFilter(int fNumber) {
 		if (fNumber == 1) {
 				return new BlueFilter();
@@ -104,26 +140,13 @@ public class Javagram {
 			else if (fNumber == 2) {
 				return new RedFilter();
 			}
+			else if (fNumber == 3) {
+				return new GreenFilter();
+			}
 			else throw new IllegalArgumentException();
 		}
 	
 	
-	//	catch (IllegalArgumentException e) {
-	//		System.out.println("That didn't work right.");
-	//	}
-	//	} while (valid_input == false);
-		/*		switch(fNumber){
-		case 1: 
-			filter = new BlueFilter();
-			return filter;
-		case 2:
-			filter = new RedFilter();
-			return filter;
-		//default:
-		//	throw e;
-		}*/
-	
-
 //	private static int displayFilterMenu(Scanner in) {
 		
 	/*//menu for user to choose from
