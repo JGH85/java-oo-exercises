@@ -81,7 +81,6 @@ public class Javagram {
 			fileName = in.next();
 		
 			// TODO - if the user enters the same file name as the input file, confirm that they want to overwrite the original
-				
 			if (fileName.equals("exit")) {
 				break;
 			}
@@ -142,8 +141,8 @@ public class Javagram {
 		
 		//set up some variables that we will need for the next sections
 		boolean valid_input = false;
-		//i need to instantiate variable outside of try block, but can't do that without making it a filter type. 
-		Filter filter = new BlueFilter();
+		
+		Filter filter = null;
 		
 		System.out.println("1. BlueFilter");
 		System.out.println("2. RedFilter");
